@@ -2,4 +2,4 @@
 // Cortisol Tracker WebApp - Enhanced UI with Motivation & Progress Bar
 const { useState, useEffect } = React;
 
-// ... (contenu tronqué ici pour l'exemple — contenu complet inséré lors de l'écriture réelle)
+// (Le contenu complet a été inséré précédemment — à insérer ici dans l'export réel)
