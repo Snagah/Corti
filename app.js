@@ -1,8 +1,3 @@
-
-// Cortisol Tracker WebApp - Enhanced UI with Motivation & Progress Bar
-const { useState, useEffect } = React;
-
-// ... (le reste du code est récupéré de la version précédente complète)
 // Cortisol Tracker WebApp - Enhanced UI with Motivation & Progress Bar
 const { useState, useEffect } = React;
 
@@ -136,7 +131,69 @@ function App() {
         })
       )
     ),
-    React.createElement("p", { style: { textAlign: "center", marginTop: "1em", color: "#2b6cb0" } }, getRandomMessage(encouragements))
+    React.createElement("div", { style: cardStyle },
+      ["humeur", "energie", "anxiete", "fatigue"].map((k) =>
+        React.createElement("div", { key: k, style: { margin: "0.5em 0" } }, [
+          `${k} : `,
+          React.createElement("input", {
+            type: "range", min: 1, max: 5, value: today[k],
+            onChange: e => setToday({ ...today, [k]: parseInt(e.target.value) })
+          }),
+          ` ${today[k]}`
+        ])
+      )
+    ),
+    React.createElement("div", { style: cardStyle }, [
+      React.createElement("h4", {}, "Habitudes"),
+      ...habitsList.map(([label, desc], i) =>
+        React.createElement("div", { key: label, style: { marginBottom: "0.5em" } }, [
+          React.createElement("input", {
+            type: "checkbox",
+            checked: today.habits[i],
+            onChange: () => {
+              const newHabits = [...today.habits];
+              newHabits[i] = !newHabits[i];
+              setToday({ ...today, habits: newHabits });
+            }
+          }),
+          ` ${label}`,
+          React.createElement("div", { style: { fontSize: "0.8em", color: "#666", marginLeft: "1.5em" } }, desc)
+        ])
+      )
+    ]),
+    React.createElement("textarea", {
+      rows: 3, style: { width: "100%", marginBottom: "1em" },
+      placeholder: "Note libre...",
+      value: today.note,
+      onChange: e => setToday({ ...today, note: e.target.value })
+    }),
+    React.createElement("button", {
+      onClick: handleSubmit,
+      disabled: alreadyLogged,
+      style: {
+        margin: "0.5em 0", padding: "0.7em 1.5em", backgroundColor: alreadyLogged ? "gray" : "#10b981",
+        color: "white", border: "none", borderRadius: "5px", cursor: alreadyLogged ? "not-allowed" : "pointer"
+      }
+    }, alreadyLogged ? "Déjà enregistré aujourd’hui" : "✅ Enregistrer la journée"),
+    React.createElement("div", {}, [
+      React.createElement("button", {
+        onClick: resetToday,
+        style: { marginRight: "1em", padding: "0.5em", backgroundColor: "#f6ad55", border: "none", borderRadius: "5px" }
+      }, "↩️ Effacer aujourd’hui"),
+      React.createElement("button", {
+        onClick: resetAll,
+        style: { padding: "0.5em", backgroundColor: "#f56565", color: "white", border: "none", borderRadius: "5px" }
+      }, "🗑️ Réinitialiser tout")
+    ]),
+    React.createElement("div", { style: cardStyle },
+      React.createElement("h4", {}, "Historique"),
+      ...entries.slice().reverse().map((e, i) =>
+        React.createElement("div", { key: i, style: { fontSize: "0.9em", borderBottom: "1px solid #ccc", marginBottom: "0.3em" } },
+          `${e.date} — Score: ${e.score}, XP: ${e.xp}, Récup: ${e.recovery}/100`
+        )
+      )
+    ),
+    React.createElement("div", { style: { textAlign: "center", marginTop: "1em", fontWeight: "bold", color: "#2b6cb0" } }, getRandomMessage(encouragements))
   ]);
 }
 
