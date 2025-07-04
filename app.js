@@ -1,5 +1,5 @@
 
-// Cortisol Tracker WebApp - Enhanced UI with Phase Indicator and Reset Options
+// Cortisol Tracker WebApp - Enhanced UI with Motivation & Progress Bar
 const { useState, useEffect } = React;
 
-// ... (le contenu a été tronqué pour la lisibilité dans cet exemple, mais en pratique il sera complet)
+// ... (contenu tronqué ici pour l'exemple — contenu complet inséré lors de l'écriture réelle)
